@@ -586,7 +586,8 @@ function youTubeApi(usersChoice) {
             maxResults: 5
         },
         method: 'POST',
-        url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        //url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        url: "./youtube/getVideos.php",
         //BEGIN SUCCESS'S ANONYMOUS FUNCTION
         success: function (response) {
             var relatedVideos = $('<h4>Related Videos</h4>');

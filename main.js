@@ -235,7 +235,6 @@ function click_handlers() {
      Details Wrapper page, it will move up to the map (using event delegation)
      */
     $(".details-wrapper").on("click",".btn-floating",function () {
-        //console.log("Button Up Clicked!");
         $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
     });
 
@@ -247,6 +246,9 @@ function click_handlers() {
         console.log(this);
         createEventDescription(this);
     });
+
+    //Initialize tooltip delay
+    $('.tooltipped').tooltip({delay: 50});
 }
 
 /**
@@ -678,6 +680,7 @@ function createEventDescription(eventCard) {
     });
     var $eventGoogleCal=$('<a/>',{
         href: 'http://www.google.com/calendar/event?action=TEMPLATE&text=' + 'Meetup:%20' + encodeURIComponent(eventName) + '&dates=' + dateForGoogleCal + '/' + dateForGoogleCal + '&details=' + encodeURIComponent(eventHowToFindUs) + '&location=' + encodeURIComponent(eventLocation),
+        target: '_blank',
         html: "<i class='tiny material-icons light-blue-text darken-1'>open_in_new</i> Add to Google Calendar"
     });
     var $eventCalendarICS=$('<a/>',{

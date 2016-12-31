@@ -235,7 +235,6 @@ function click_handlers() {
      Details Wrapper page, it will move up to the map (using event delegation)
      */
     $(".details-wrapper").on("click",".btn-floating",function () {
-        //console.log("Button Up Clicked!");
         $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
     });
 

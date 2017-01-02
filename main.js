@@ -569,7 +569,7 @@ function youTubeApi(usersChoice) {
     var arrayConcatUsersChoice = [];
     var splitarrayConcatUsersChoiceToString;
     for(var i = 0; i < len; i++ ){
-        concatUsersChoice = splitUsersChoice[i] + ' tips';
+        concatUsersChoice = splitUsersChoice[i] + "+tips";
         arrayConcatUsersChoice.push(concatUsersChoice);
     }
     console.log('Here is the arrayConcatUsersChoice : ',arrayConcatUsersChoice);
@@ -588,7 +588,8 @@ function youTubeApi(usersChoice) {
             maxResults: 5
         },
         method: 'POST',
-        url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        //url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        url: "./youtube/getVideos.php",
         //BEGIN SUCCESS'S ANONYMOUS FUNCTION
         success: function (response) {
             var relatedVideos = $('<h4>Related Videos</h4>');

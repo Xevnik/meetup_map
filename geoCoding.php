@@ -4,5 +4,12 @@ header("Access-Control-Allow-Origin: *");
 
 require_once ('apikeys.php');
 
-$geoCodeData = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=".$_GET['zip']."&key=".$googleKey);
+$arrContextOptions=array(
+    "ssl"=>array(
+        "verify_peer"=>false,
+        "verify_peer_name"=>false,
+    ),
+);
+
+$geoCodeData = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=".$_GET['zip']."&key=".$googleKey, false, stream_context_create($arrContextOptions));
 print_r($geoCodeData);

@@ -92,6 +92,7 @@ function geoCoding(search,zip) {
  */
 function parseEventsForMaps(eventObj) {
     console.log("Event Object is", eventObj);
+
     var geocodeArray = [];
     $("#map_left").html("");
     var j = 1;
@@ -115,8 +116,10 @@ function parseEventsForMaps(eventObj) {
                     lng: eventLon,
                     title: eventObj[i].name,
                     address: addressText,
-                    venue: eventObj[i].venue.name
+                    venue: eventObj[i].venue.name,
+                    time: Date(eventObj[i].time)
                 });
+
                 j++;
             }
         }

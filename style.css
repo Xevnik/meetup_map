@@ -341,6 +341,25 @@ TOAST
     left: 50%;
     transform: translate(-50%,-50%);
 }
+div.mylabel div.div_links .event-time {
+    display: none;
+}
+
+@media only screen and (min-device-width : 969px) and (max-device-width : 1024px) {
+    .card-content span.card-title {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-device-width : 661px) and (max-device-width : 968px) {
+    .card-content span.card-title {
+        font-size: 16px;
+    }
+    div.card.red.lighten-1 {
+        margin-right: 5px;
+        width: 95%;
+    }
+}
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 660px) {
 
@@ -360,21 +379,31 @@ TOAST
         width: 100%;
     }
 
-    #map {
+    .map_left {
+        position: static;
+        height: 88vh;
+        z-index: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
         display: none;
     }
 
-    .map-left {
-        position: fixed;
-        height: 88vh;
-        z-index: 2;
-        overflow-y: scroll;
-        overflow-x: hidden;
+    #map_left {
+        display: none;
+    }
+
+    #map {
+        display: block;
+        z-index: 100;
     }
 
     .details-wrapper {
         display: none;
     }
-
+    .event-time {
+        display: block;
+    }
 }
+
+
 

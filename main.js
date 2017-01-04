@@ -238,7 +238,6 @@ function click_handlers() {
      Details Wrapper page, it will move up to the map (using event delegation)
      */
     $(".details-wrapper").on("click",".btn-floating",function () {
-        //console.log("Button Up Clicked!");
         $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
     });
 
@@ -250,6 +249,9 @@ function click_handlers() {
         console.log(this);
         createEventDescription(this);
     });
+
+    //Initialize tooltip delay
+    $('.tooltipped').tooltip({delay: 50});
 }
 
 /**
@@ -570,7 +572,7 @@ function youTubeApi(usersChoice) {
     var arrayConcatUsersChoice = [];
     var splitarrayConcatUsersChoiceToString;
     for(var i = 0; i < len; i++ ){
-        concatUsersChoice = splitUsersChoice[i] + ' tips';
+        concatUsersChoice = splitUsersChoice[i] + "+tips";
         arrayConcatUsersChoice.push(concatUsersChoice);
     }
     console.log('Here is the arrayConcatUsersChoice : ',arrayConcatUsersChoice);
@@ -589,7 +591,8 @@ function youTubeApi(usersChoice) {
             maxResults: 5
         },
         method: 'POST',
-        url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        //url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
+        url: "./youtube/getVideos.php",
         //BEGIN SUCCESS'S ANONYMOUS FUNCTION
         success: function (response) {
             var relatedVideos = $('<h4>Related Videos</h4>');
@@ -681,6 +684,7 @@ function createEventDescription(eventCard) {
     });
     var $eventGoogleCal=$('<a/>',{
         href: 'http://www.google.com/calendar/event?action=TEMPLATE&text=' + 'Meetup:%20' + encodeURIComponent(eventName) + '&dates=' + dateForGoogleCal + '/' + dateForGoogleCal + '&details=' + encodeURIComponent(eventHowToFindUs) + '&location=' + encodeURIComponent(eventLocation),
+        target: '_blank',
         html: "<i class='tiny material-icons light-blue-text darken-1'>open_in_new</i> Add to Google Calendar"
     });
     var $eventCalendarICS=$('<a/>',{

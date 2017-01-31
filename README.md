@@ -2,7 +2,7 @@
 
 **[Live link](https://www.meetup-map.com)**
 
-![Meetup Map](http://taylorsturtz.com/images/StudentGradeTable-WebMock-sm.jpg)
+![Meetup Map](http://taylorsturtz.com/images/MeetupMap-WebMock-sm.jpg)
 
 A modern responsive web application that allows users to search for upcoming meetup events based on location and interest. Results are displayed on a map and listed so that users can click to see detailed information, add the event to their calendar, and view YouTube videos related to the event.
 

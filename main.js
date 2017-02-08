@@ -631,6 +631,7 @@ function createEventDescription(eventCard) {
         click: function() {
             var cal = ics();
             cal.addEvent('Meetup: ' + cardEvent['name'], 'Hosted by: ' + cardEvent.group.name + '<br><br>' + 'Description: ' + cardEvent['description'] + '<br>' + 'How to find us: ' + cardEvent['how_to_find_us'] + '<br><br><br>' + 'Brought to you by MeetupMap.', cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state, dateForICS, dateForICS);
+            cal.download();
         }
     });
     var $eventDescription=$('<p>',{

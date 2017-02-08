@@ -54,7 +54,7 @@ function geoCoding(search,zip) {
                     error: function (err) {
                         var $statusCode = $('<div>',{
                             class: 'error-status',
-                            html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                            html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
                         });
                         $('.preloader-wrapper').hide();
                         $('.greyBG').append($statusCode);
@@ -71,7 +71,7 @@ function geoCoding(search,zip) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
@@ -249,7 +249,7 @@ function getTopics(keyword, zipcode) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
@@ -282,7 +282,7 @@ function getTopicsBackup(keyword, zipcode) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
@@ -324,7 +324,7 @@ function getEvents(keyword, zip) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
@@ -362,7 +362,7 @@ function getEventsBackup(keyword, zip) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
@@ -579,7 +579,7 @@ function youTubeApi(usersChoice) {
         error: function (err) {
             var $statusCode = $('<div>',{
                 class: 'error-status',
-                html: 'Oops! Something went wrong!' + '<br>' + err.status + ' ' + err.statusText
+                html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);

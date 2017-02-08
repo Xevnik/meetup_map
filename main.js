@@ -30,7 +30,6 @@ function geoCoding(search,zip) {
             {
                 var output = response.results[0].geometry.location;
                 global_zip = output;
-                //console.log("param search is "+ search);
                 $.ajax({
                     dataType: 'JSON',
                     method: 'GET',
@@ -43,11 +42,9 @@ function geoCoding(search,zip) {
                             // checks to make sure that last item in array is postal_code, not postal_code_suffix.
                             if (response2.results[0].address_components[lastAddressComponent].types[0] === 'postal_code') {
                                 var reverseGeoZip = response2.results[0].address_components[lastAddressComponent].short_name;
-                                //console.info('reverseGeoZip - postal code: ', reverseGeoZip);
                                 getTopics(search, reverseGeoZip);
                             } else {
                                 var reverseGeoZipNoSuffix = response2.results[0].address_components[lastAddressComponent-1].short_name;
-                                //console.info('reverseGeoZip - avoided postal code suffix: ', reverseGeoZipNoSuffix);
                                 getTopics(search, reverseGeoZipNoSuffix);
                             }
                         } else {
@@ -127,6 +124,23 @@ function parseEventsForMaps(eventObj) {
     return geocodeArray;
 }
 
+function inputConfirmed(){
+    //debugger;
+    var userSearch = $('#search').val() || $('#nav_search').val();
+    var userZip = $('#zip').val() || $('#nav_zip').val();
+    if (userSearch == '' || userZip == ''){
+        Materialize.toast('Please fill in both', 2000, 'white red-text');
+        return;
+    }
+    geoCoding(userSearch, userZip);
+    $('#nav_search').val(userSearch);
+    $('#nav_zip').val(userZip);
+    $('#search').val('').blur();
+    $('#zip').val('').blur();
+    $('.greyBG').show();
+    $('.preloader-wrapper').show();
+}
+
 /**
  * function click_handlers
  */
@@ -139,22 +153,17 @@ function click_handlers() {
     $('.input-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
-            //console.log('Front Page Search');
-            var userSearch = $('#search').val();
-            var userZip = $('#zip').val();
-            if (userSearch === '' || userZip === ''){
-                Materialize.toast('Please fill in both', 2000, 'white red-text');
-                return;
-            }
-            geoCoding(userSearch, userZip);
-            $('#search').val('').blur();
-            $('#nav_search').val('').blur();
-            $('#zip').val('').blur();
-            $('#nav_zip').val('').blur();
-            $('.greyBG').show();
-            $('.preloader-wrapper').show();
+            inputConfirmed();
         }
     });
+
+    /*
+     When the user clicks GO , it will submit the inputs on the FRONT PAGE
+     */
+    $('button#front-go').click(function () {
+        inputConfirmed();
+    });
+
 
     /*
      When the user presses ENTER, it will submit the inputs on the TOP NAV BAR
@@ -163,62 +172,15 @@ function click_handlers() {
     $('.input-nav-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
-            //console.log('Nav Bar Search');
-            var userSearch = $('#nav_search').val();
-            var userZip = $('#nav_zip').val();
-            if (userSearch === '' || userZip === ''){
-                Materialize.toast('Please fill in both', 2000, 'red white-text');
-                return;
-            }
-            geoCoding(userSearch, userZip);
-            //youTubeApi(userSearch);
-            $('#search').val('').blur();
-            $('#nav_search').val('').blur();
-            $('#zip').val('').blur();
-            $('#nav_zip').val('').blur();
-            $('.greyBG').show();
-            $('.preloader-wrapper').show();
-
+            inputConfirmed();
         }
-    });
-
-    /*
-        When the user clicks GO , it will submit the inputs on the FRONT PAGE
-    */
-    $('button#front-go').click(function () {
-        var userSearch = $('#search').val();
-        var userZip = $('#zip').val();
-        if (userSearch === '' || userZip === ''){
-            Materialize.toast('Please fill in both', 2000, 'white red-text');
-            return;
-        }
-        geoCoding(userSearch, userZip);
-        $('#search').val('').blur();
-        $('#nav_search').val('').blur();
-        $('#zip').val('').blur();
-        $('#nav_zip').val('').blur();
-        $('.greyBG').show();
-        $('.preloader-wrapper').show();
     });
 
     /*
      When the user clicks GO , it will submit the inputs on the TOP NAV BAR
      */
     $('button#nav-go').click(function () {
-        var userSearch = $('#nav_search').val();
-        var userZip = $('#nav_zip').val();
-        if (userSearch === '' || userZip === ''){
-            Materialize.toast('Please fill in both', 2000, 'red white-text');
-            return;
-        }
-        geoCoding(userSearch, userZip);
-        //youTubeApi(userSearch);
-        $('#search').val('').blur();
-        $('#nav_search').val('').blur();
-        $('#zip').val('').blur();
-        $('#nav_zip').val('').blur();
-        $('.greyBG').show();
-        $('.preloader-wrapper').show();
+        inputConfirmed();
     });
 
     /*
@@ -246,7 +208,6 @@ function click_handlers() {
         $(".intro-wrapper").animate({top: '-200vh'}, 750);
         $('.active-card').removeClass('active-card');
         $(this).addClass('active-card');
-        //console.log(this);
         createEventDescription(this);
     });
 
@@ -261,9 +222,7 @@ function click_handlers() {
  */
 function getTopics(keyword, zipcode) {
     var keyConcat = keyword.split(' ').join('%');
-    //console.info('keyword: ', keyConcat);
     var zip = zipcode;
-    //console.info('zipcode: ', zip);
     $.ajax({
         dataType: 'JSON',
         method: 'GET',
@@ -284,7 +243,6 @@ function getTopics(keyword, zipcode) {
                         }
                     }
                 }
-                //console.log('Topics', topics);
                 getEvents(topics, zip); //pass the topics and zipcode to look for open events
             }
         },
@@ -319,7 +277,6 @@ function getTopicsBackup(keyword, zipcode) {
                     }
                 }
             }
-            //console.log('Topics', topics);
             getEvents(topics, zip); //pass the topics and zipcode to look for open events
         },
         error: function (err) {
@@ -419,7 +376,6 @@ function getEventsBackup(keyword, zip) {
  * @param {object} event - event containing necessary info
  */
 function createEventCard(event){
-    //console.log('Event card', event);
     var eventId = global_event.length;
     global_event.push(event); //push events used for cards to array for use on event description page
     var eventName = event['name'];
@@ -640,9 +596,7 @@ function createEventDescription(eventCard) {
     $('.event-details').html('');
     var cardClicked = eventCard;
     var cardId = $(cardClicked).attr('id'); //finds card id to look for matching event
-    //console.log('Card Clicked', cardId);
     cardEvent = global_event[cardId];
-    //console.log('This Event ', cardEvent);
     var dateForICS = parseICSDate(new Date(cardEvent['time']));
     var dateForGoogleCal = parseGoogleDate(new Date(cardEvent['time']));
     var date = new Date(cardEvent['time']);

@@ -1,6 +1,6 @@
 # Meetup Map
 
-**[Live link](https://www.meetup-map.com)**
+**[Live link](http://www.meetup-map.com)**
 
 ![Meetup Map](http://taylorsturtz.com/images/MeetupMap-WebMock-sm.jpg)
 

@@ -550,11 +550,6 @@ $('#map_left').on('click','.card', function(){
 
 });
 
-function missingPropertyValues(objName) {
-    for(var i=0 in event) {
-        //console.log(objName[i]);
-    }
-}
 
 //API IS BEING THROTTLED FUNCTION
 function apiThrottled(heading,message) {
@@ -565,8 +560,8 @@ function apiThrottled(heading,message) {
 
 //YOUTUBE SECTION -- DANs
 function youTubeApi(usersChoice) {
+    //this first part is to add the word "tips" to the search term to get better results
     var splitUsersChoice = usersChoice.split(',');
-    //console.log('Here is the splitUsersChoice : ', splitUsersChoice);
     var len = splitUsersChoice.length;
     var concatUsersChoice;
     var arrayConcatUsersChoice = [];
@@ -575,13 +570,9 @@ function youTubeApi(usersChoice) {
         concatUsersChoice = splitUsersChoice[i] + "+tips";
         arrayConcatUsersChoice.push(concatUsersChoice);
     }
-    //console.log('Here is the arrayConcatUsersChoice : ',arrayConcatUsersChoice);
     splitarrayConcatUsersChoiceToString = arrayConcatUsersChoice.toString();
-    //console.log('Here is the splitarrayConcatUsersChoiceToString : ',splitarrayConcatUsersChoiceToString);
     var videoSearch = splitarrayConcatUsersChoiceToString;
-    missingPropertyValues(event);
     //usersChoice = usersChoice + ' Meetup';
-    //console.log('In the youTubeApi function');
     $('div.video-list').html('');
     //BEGINNING OF AJAX FUNCTION
     $.ajax({
@@ -598,8 +589,6 @@ function youTubeApi(usersChoice) {
             var relatedVideos = $('<h4>Related Videos</h4>');
             var videoList = $('div.video-list').append(relatedVideos);
             if (response.success === true) {
-                //CONSOLE LOGS FOR TESTING PURPOSES
-                //console.log('successful connection to YouTube API');
                 if(response.video) {
                     //LOOP FOR VIDEO ID AND TITLE
                     for (var i = 0; i < response.video.length; i++) {
@@ -616,7 +605,6 @@ function youTubeApi(usersChoice) {
                         //ADDING VIDEO LINK TO THE DOM
                         //var videoList = $('div.video-list').append(relatedVideos);
                         videoList.append(iframe);
-                        //console.log('This is the new div and class ', iframeDiv);
                         }
                 } else {
                     var noVideoMessage = $('<p>Currently, there are no videos in our search results.</p>');

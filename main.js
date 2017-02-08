@@ -80,7 +80,7 @@ function geoCoding(search,zip) {
             $('.greyBG').append($statusCode);
             console.log('houston we have a problem: ', err);
         }
-    })
+    });
 }
 
 /**
@@ -105,7 +105,7 @@ function parseEventsForMaps(eventObj) {
             var eventLat = eventObj[i].venue.lat;
             var eventLon = eventObj[i].venue.lon;
 
-            if (eventLat != 0 || eventLon != 0) {
+            if (eventLat !== 0 || eventLon !== 0) {
                 createEventCard(eventObj[i]);
                 global_venue.push(j+") "+eventObj[i].venue.name);
 
@@ -142,7 +142,7 @@ function click_handlers() {
             //console.log('Front Page Search');
             var userSearch = $('#search').val();
             var userZip = $('#zip').val();
-            if (userSearch == '' || userZip == ''){
+            if (userSearch === '' || userZip === ''){
                 Materialize.toast('Please fill in both', 2000, 'white red-text');
                 return;
             }
@@ -166,7 +166,7 @@ function click_handlers() {
             //console.log('Nav Bar Search');
             var userSearch = $('#nav_search').val();
             var userZip = $('#nav_zip').val();
-            if (userSearch == '' || userZip == ''){
+            if (userSearch === '' || userZip === ''){
                 Materialize.toast('Please fill in both', 2000, 'red white-text');
                 return;
             }
@@ -188,7 +188,7 @@ function click_handlers() {
     $('button#front-go').click(function () {
         var userSearch = $('#search').val();
         var userZip = $('#zip').val();
-        if (userSearch == '' || userZip == ''){
+        if (userSearch === '' || userZip === ''){
             Materialize.toast('Please fill in both', 2000, 'white red-text');
             return;
         }
@@ -207,7 +207,7 @@ function click_handlers() {
     $('button#nav-go').click(function () {
         var userSearch = $('#nav_search').val();
         var userZip = $('#nav_zip').val();
-        if (userSearch == '' || userZip == ''){
+        if (userSearch === '' || userZip === ''){
             Materialize.toast('Please fill in both', 2000, 'red white-text');
             return;
         }
@@ -297,7 +297,7 @@ function getTopics(keyword, zipcode) {
             $('.greyBG').append($statusCode);
             console.log('houston we have a problem: ', err);
         }
-    })
+    });
 }
 
 //Get topics backup if meetup API limits on first key are reached TODO: THIS DOES NOT USE BACKUP API KEY YET
@@ -331,7 +331,7 @@ function getTopicsBackup(keyword, zipcode) {
             $('.greyBG').append($statusCode);
             console.log('houston we have a problem: ', err);
         }
-    })
+    });
 }
 
 /**
@@ -373,7 +373,7 @@ function getEvents(keyword, zip) {
             $('.greyBG').append($statusCode);
             console.log('houston we have a problem: ', err);
         }
-    })
+    });
 }
 
 //Get events backup if meetup API limits on first key are reached TODO: THIS DOES NOT USE BACKUP API KEY YET
@@ -411,7 +411,7 @@ function getEventsBackup(keyword, zip) {
             $('.greyBG').append($statusCode);
             console.log('houston we have a problem: ', err);
         }
-    })
+    });
 }
 
 /**
@@ -479,7 +479,7 @@ function parseTime(date){
         hour -= 12;
         amOrPm = 'pm';
     }else{
-        amOrPm = 'am'
+        amOrPm = 'am';
     }
     if(minutes === 0){
         minutes = '00';
@@ -583,7 +583,7 @@ function youTubeApi(usersChoice) {
         },
         method: 'POST',
         //url: "https://s-apis.learningfuze.com/hackathon/youtube/search.php",
-        url: "./youtube/getVideos.php",
+        url: "./services/getVideos.php",
         //BEGIN SUCCESS'S ANONYMOUS FUNCTION
         success: function (response) {
             var relatedVideos = $('<h4>Related Videos</h4>');

@@ -48,7 +48,7 @@ function geoCoding(search,zip) {
                                 getTopics(search, reverseGeoZipNoSuffix);
                             }
                         } else {
-                            console.warn('houston we have a problem', response2);
+                            //console.warn('houston we have a problem', response2);
                         }
                     },
                     error: function (err) {
@@ -58,7 +58,7 @@ function geoCoding(search,zip) {
                         });
                         $('.preloader-wrapper').hide();
                         $('.greyBG').append($statusCode);
-                        console.log('houston we have a problem: ', err);
+                        //console.log('houston we have a problem: ', err);
                     }
                 });
             } else {
@@ -75,7 +75,7 @@ function geoCoding(search,zip) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }
@@ -88,7 +88,6 @@ function geoCoding(search,zip) {
  * @param {object} eventObj - event object passed from Meetup Open Events API
  */
 function parseEventsForMaps(eventObj) {
-    //console.log("Event Object is", eventObj);
 
     var geocodeArray = [];
     $("#map_left").html("");
@@ -98,7 +97,6 @@ function parseEventsForMaps(eventObj) {
     for (var i = 0; i < eventObj.length; i++) {
 
         if (eventObj[i].hasOwnProperty("venue")) {
-            //console.log("YES");
             var eventLat = eventObj[i].venue.lat;
             var eventLon = eventObj[i].venue.lon;
 
@@ -128,7 +126,7 @@ function inputConfirmed(){
     //debugger;
     var userSearch = $('#search').val() || $('#nav_search').val();
     var userZip = $('#zip').val() || $('#nav_zip').val();
-    if (userSearch == '' || userZip == ''){
+    if (userSearch === '' || userZip === ''){
         Materialize.toast('Please fill in both', 2000, 'white red-text');
         return;
     }
@@ -230,7 +228,6 @@ function getTopics(keyword, zipcode) {
         data: {keyword:keyConcat},
         success: function (response) {
             var topics = '';
-            //console.log('getTopics response: ', response);
             if (response['code'] === 'blocked') {
                 getTopicsBackup(keyConcat, zip);
             } else {
@@ -253,7 +250,7 @@ function getTopics(keyword, zipcode) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }
@@ -286,7 +283,7 @@ function getTopicsBackup(keyword, zipcode) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }
@@ -328,7 +325,7 @@ function getEvents(keyword, zip) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }
@@ -366,7 +363,7 @@ function getEventsBackup(keyword, zip) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }
@@ -567,8 +564,6 @@ function youTubeApi(usersChoice) {
                     relatedVideos.append(noVideoMessage);
                }
             } else {
-                //CONSOLE LOG FOR TESTING PURPOSES
-                console.log('failure -- Unable to connect to YouTube api');
                 //CALLING A FUNCTION FOR IF THE API IS DOWN
                 var youTubeFailHeading = 'Oh no!';
                 var youTubeFailMessage = 'This is rare, but we are unable to pull any videos at this time.' +
@@ -583,7 +578,7 @@ function youTubeApi(usersChoice) {
             });
             $('.preloader-wrapper').hide();
             $('.greyBG').append($statusCode);
-            console.log('houston we have a problem: ', err);
+            //console.log('houston we have a problem: ', err);
         }
     });
 }

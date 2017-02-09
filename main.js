@@ -8,9 +8,12 @@
  */
 
 $(document).ready(click_handlers);
+
 var global_event = [];
 var global_zip = null;
 var global_venue = [];
+
+
 /**
  * function geoCoding
  *      converts zip code to longitude and latitude
@@ -125,6 +128,12 @@ function parseEventsForMaps(eventObj) {
     return geocodeArray;
 }
 
+
+/**
+ * Function inputConfirmed
+ * ran when user press 'enter'/click go to search
+ * calls geocode and clears input on front screen populates nav search
+ */
 function inputConfirmed(){
     var userSearch = $('#search').val() || $('#nav_search').val();
     var userZip = $('#zip').val() || $('#nav_zip').val();
@@ -147,7 +156,7 @@ function inputConfirmed(){
 function click_handlers() {
 
     /*
-    When the user presses ENTER, it will submit the inputs on the FRONT PAGE
+     When the user presses ENTER, it will submit the inputs on the FRONT PAGE
      */
 
     $('.input-container input').keypress(function(event) {
@@ -214,8 +223,23 @@ function click_handlers() {
 
     //Initialize tooltip delay
     $('.tooltipped').tooltip({delay: 50});
-}
 
+}
+/**
+ * Function Highlight - make matching event card active when its map marker is clicked
+ * @param marker - the marker clicked (see script in index)
+ */
+function highlight(marker){
+    var subStr = marker.html.match("<span>(.*)<\/span>");
+    console.log(subStr[1]);
+    var card = $('.card-title:contains("'+ subStr[1] +'")').parent();
+    $(".card-content").removeClass("active-card");
+    // var parent = $(x).parent();
+    // var event = parent["0"].firstChild.childNodes["0"].data;
+    // var card= $('.card-title:contains("'+ event +'")').parent();
+    $(card).addClass("active-card");
+    $("#map_left").scrollTo(card);
+}
 /**
  * getTopics - using user-entered interest, generate topics and use first 2 url keys
  * @param {string} keyword - user-entered interest

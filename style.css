@@ -245,6 +245,9 @@ DETAILS PAGE
 ********************/
 
 .details-wrapper {
+    position: relative;
+    top: 12vh;
+    height: 88vh;
     overflow: auto;
     overflow-x: hidden;
 }
@@ -268,7 +271,7 @@ DETAILS PAGE
 
 .details-inner {
     position: relative;
-    top: 2vh;
+    top: -11vh;
     height: 100vh;
 }
 

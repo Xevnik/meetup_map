@@ -255,15 +255,15 @@ function getTopics(keyword, zipcode) {
         data: {keyword:keyConcat},
         success: function (response) {
             var topics = '';
-            if (response['code'] === 'blocked') {
+            if (response.code === 'blocked') {
                 getTopicsBackup(keyConcat, zip);
             } else {
                 if (response.results.length > 0) { //if the array > 0, there are topics related to user's search term
                     for (var i = 0; i < response.results.length; i++) { //for the amount of results, add to string separated by commas
                         if (i !== response.results.length - 1) {
-                            topics += response.results[i]['urlkey'] + ',';
+                            topics += response.results[i].urlkey + ',';
                         } else {
-                            topics += response.results[i]['urlkey'];
+                            topics += response.results[i].urlkey;
                         }
                     }
                 }
@@ -297,9 +297,9 @@ function getTopicsBackup(keyword, zipcode) {
             if (response.results.length > 0) { //if the array > 0, there are topics related to user's search term
                 for (var i = 0; i < response.results.length; i++) { //for the amount of results, add to string separated by commas
                     if (i !== response.results.length - 1) {
-                        topics += response.results[i]['urlkey'] + ',';
+                        topics += response.results[i].urlkey + ',';
                     } else {
-                        topics += response.results[i]['urlkey'];
+                        topics += response.results[i].urlkey;
                     }
                 }
             }
@@ -410,8 +410,8 @@ function getEventsBackup(keyword, zip) {
 function createEventCard(event){
     var eventId = global_event.length;
     global_event.push(event); //push events used for cards to array for use on event description page
-    var eventName = event['name'];
-    var date = new Date(event['time']);
+    var eventName = event.name;
+    var date = new Date(event.time);
     date = parseTime(date);
     var venueName = event.venue.name;
     /*Comment to see if git contribution will show up */
@@ -515,19 +515,19 @@ function parseGoogleDate(date) {
 
 $('#map_left').on('click','.card', function(){
     var $eventName=$('<h1>',{
-        text:event[i]['name']
+        text:event[i].name
     });
     var $groupName=$('<h5>',{
         text:event[i].group.name
     });
     var $eventDate= $('<h4>',{
-        text: new Date(event[i]['time'])
+        text: new Date(event[i].time)
     });
     var $eventAddress= $('<h4>',{
         text:event[i].venue.address_1 + ' ' + event[i].venue.city + ', ' + event[i].venue.state
     });
     var $eventDescription=$('<p>',{
-        text:event[i]['description']
+        text:event[i].description
     });
     var $eventDetail=$('<div>',{
         class:"event-details"
@@ -629,18 +629,18 @@ function createEventDescription(eventCard) {
     var cardClicked = eventCard;
     var cardId = $(cardClicked).attr('id'); //finds card id to look for matching event
     cardEvent = global_event[cardId];
-    var dateForICS = parseICSDate(new Date(cardEvent['time']));
-    var dateForGoogleCal = parseGoogleDate(new Date(cardEvent['time']));
-    var date = new Date(cardEvent['time']);
+    var dateForICS = parseICSDate(new Date(cardEvent.time));
+    var dateForGoogleCal = parseGoogleDate(new Date(cardEvent.time));
+    var date = new Date(cardEvent.time);
     date = parseTime(date); //get readable date format
     var state = cardEvent.venue.state || '';
-    var eventName = cardEvent['name'];
+    var eventName = cardEvent.name;
     var eventLocation = (cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state);
-    var eventHowToFindUs = cardEvent['how_to_find_us'];
+    var eventHowToFindUs = cardEvent.how_to_find_us;
     eventHowToFindUs = eventHowToFindUs === undefined ? '' : 'How to find us: ' + eventHowToFindUs;
     var $eventName=$('<h3>',{
         class: 'red-text event-title',
-        text: cardEvent['name']
+        text: cardEvent.name
     });
     var $groupName=$('<h6>',{
         html: '<em>' + cardEvent.group.name + '</em>'
@@ -654,7 +654,7 @@ function createEventDescription(eventCard) {
     });
     var $eventURL=$('<a/>',{
         target: "_blank",
-        href: cardEvent['event_url'],
+        href: cardEvent.event_url,
         html: "<i class='tiny material-icons light-blue-text darken-1'>open_in_new</i> View Event on Meetup.com"
     });
     var $eventGoogleCal=$('<a/>',{
@@ -667,12 +667,12 @@ function createEventDescription(eventCard) {
         html: "<i class='tiny material-icons light-blue-text darken-1'>file_download</i> Download ICS (Calendar) File",
         click: function() {
             var cal = ics();
-            cal.addEvent('Meetup: ' + cardEvent['name'], 'Hosted by: ' + cardEvent.group.name + '<br><br>' + 'Description: ' + cardEvent['description'] + '<br>' + 'How to find us: ' + cardEvent['how_to_find_us'] + '<br><br><br>' + 'Brought to you by MeetupMap.', cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state, dateForICS, dateForICS);
+            cal.addEvent('Meetup: ' + cardEvent.name, 'Hosted by: ' + cardEvent.group.name + '<br><br>' + 'Description: ' + cardEvent.description + '<br>' + 'How to find us: ' + cardEvent.how_to_find_us + '<br><br><br>' + 'Brought to you by MeetupMap.', cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state, dateForICS, dateForICS);
             cal.download();
         }
     });
     var $eventDescription=$('<p>',{
-        html: cardEvent['description']
+        html: cardEvent.description
     });
     //attach elements to dom
     $('.event-details').append($groupName,$eventName,$eventAddress,$eventDate,$('<hr>'),$eventURL,$('<br>'),$eventGoogleCal,$('<br>'),$eventCalendarICS,$('<hr>'),$eventDescription);

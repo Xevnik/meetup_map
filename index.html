@@ -244,17 +244,17 @@
 
                 marker.pos = new google.maps.LatLng(eventObj[i].lat, eventObj[i].lng);
                 marker.html = '<div class="mylabel"><span>' +
-                        eventObj[i].venue +
-                        '</span><div class="div_links">'+eventObj[i].title+'</div>' +
-                        '<div class="div_links">'+eventObj[i].address+'</div>' +
-                        '<div class="div_links">' + eventObj[i].time +'</div>' +
-                        '</div>';
+                        eventObj[i].title +
+                        '</span><div class="div_links">'+eventObj[i].venue+'</div>' +
+                        '<div class="div_links">'+eventObj[i].address+'</div>' + '<a class="details" href="#" onclick="test(this)">More Details</a>'
+                         + '</div>';
 
                 marker.addListener('click', function () {
                     //infowindow.open(map, marker);
                     infoBubble2.setContent(this.html);
                     infoBubble2.open(map, this);
                     //map.panTo(this.pos);
+                    highlight(this);
                 });
 
 

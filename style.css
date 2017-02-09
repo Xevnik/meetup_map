@@ -49,11 +49,12 @@
 
 .error-status {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 202;
+    color: white;
+    text-align: center;
 }
 
 .spinner-red-only {
@@ -220,12 +221,13 @@ SIDEBAR
     position: relative;
 }
 
-.back-to-map {
-    position: absolute;
+.back-one {
+    position: fixed;
     left: 90%;
     transform: translateX(-10%);
-    top: 8vh;
+    top: 7vh;
     z-index: 100;
+    display: none;
 }
 
 .card .card-content .card-title {
@@ -404,6 +406,3 @@ div.mylabel div.div_links .event-time {
         display: block;
     }
 }
-
-
-

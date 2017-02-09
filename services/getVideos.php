@@ -7,7 +7,7 @@
  */
 
 //Need key file
-require_once('../apikeys.php');
+require_once('apikeys.php');
 
 $output = [
     'success'=>false

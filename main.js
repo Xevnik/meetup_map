@@ -188,17 +188,17 @@ function click_handlers() {
         //Clear inputs and lose focus so labels
         $('#top_search').removeClass('search-top');
         $('#map_left').removeClass('map-left');
-        $('.intro-wrapper').animate({top: '0vh'}, 750, function(){
-
-        });
+        $('.intro-wrapper').animate({top: '0vh'}, 750, function(){});
+        $('.back-one').fadeOut('slow','linear');
     });
 
     /*
      When the user clicks on the ROUND CIRCLE BUTTON on the top right off the
      Details Wrapper page, it will move up to the map (using event delegation)
      */
-    $(".details-wrapper").on("click",".btn-floating",function () {
+    $(".back-one").click(function () {
         $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
+        $('.back-one').fadeOut('slow','linear');
     });
 
     //Event delegation for card events. On click, dynamically adds specific event info to event description page
@@ -207,6 +207,7 @@ function click_handlers() {
         $('.active-card').removeClass('active-card');
         $(this).addClass('active-card');
         createEventDescription(this);
+        $('.back-one').css('display','block');
     });
 
     //Initialize tooltip delay

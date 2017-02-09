@@ -53,7 +53,6 @@ function geoCoding(search,zip) {
                     },
                     error: function (err) {
                         var $statusCode = $('<div>',{
-                            class: 'error-status',
                             html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
                         });
                         $('.preloader-wrapper').hide();
@@ -62,19 +61,23 @@ function geoCoding(search,zip) {
                     }
                 });
             } else {
-                var header = "API Error";
-                var paragraph = "We cannot process the geocoding API at the moment. Please try again later";
+                var header = "Oops!";
+                var paragraph = "Either the city or zip code that you entered was not valid or we're having an issue. Try again later!";
                 apiThrottled(header, paragraph);
+                $('.preloader-wrapper').hide();
+                $('.greyBG').hide();
             }
 
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });
@@ -123,7 +126,6 @@ function parseEventsForMaps(eventObj) {
 }
 
 function inputConfirmed(){
-    //debugger;
     var userSearch = $('#search').val() || $('#nav_search').val();
     var userZip = $('#zip').val() || $('#nav_zip').val();
     if (userSearch === '' || userZip === ''){
@@ -246,11 +248,13 @@ function getTopics(keyword, zipcode) {
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });
@@ -279,11 +283,13 @@ function getTopicsBackup(keyword, zipcode) {
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });
@@ -321,11 +327,13 @@ function getEvents(keyword, zip) {
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });
@@ -359,11 +367,13 @@ function getEventsBackup(keyword, zip) {
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });
@@ -574,11 +584,13 @@ function youTubeApi(usersChoice) {
         },
         error: function (err) {
             var $statusCode = $('<div>',{
-                class: 'error-status',
                 html: 'Oops! Something went wrong!' + '<br>' + '(' + err.status + ' ' + err.statusText + ')'
             });
+            var header = "Oops!";
+            var paragraph = $statusCode;
+            apiThrottled(header, paragraph);
             $('.preloader-wrapper').hide();
-            $('.greyBG').append($statusCode);
+            $('.greyBG').hide();
             //console.log('houston we have a problem: ', err);
         }
     });

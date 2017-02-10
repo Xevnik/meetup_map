@@ -379,7 +379,8 @@ RESPONSIVE
     }
 
     .card-content span.card-title {
-        font-size: 16px;
+        font-size: 18px;
+        line-height: 24px;
     }
 
     div.card.red.lighten-1 {

@@ -133,7 +133,7 @@ INTRO PAGE
 }
 
 .row .input-field input:focus, input[type=text].valid {
-    box-shadow: 0 1px 0 0 white !important;
+    box-shadow: 0 0 0 0 !important;
     border-bottom: 1px solid white !important;
 }
 
@@ -385,6 +385,24 @@ RESPONSIVE
     div.card.red.lighten-1 {
         margin-right: 5px;
         width: 95%;
+    }
+
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 700px) {
+
+    .staticBG {
+        background: url(assets/images/staticBG-bw.jpg) no-repeat center;
+        background-size: cover;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: -1;
     }
 
 }

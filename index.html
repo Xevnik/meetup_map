@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Meetup Map</title>
+    <link rel="icon" type="image/png" href="./assets/images/pin.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
@@ -19,6 +20,7 @@
     <div class="intro-wrapper">
         <div class="row">
             <div class="col s12 valign-wrapper intro-top">
+                <!-- Intro content -->
                 <div class="col s10 offset-s1 l6 offset-l3 valign valign-wrapper intro-contain">
                     <div class="row">
                         <div class="col s6 offset-s3 logo"></div>
@@ -48,17 +50,23 @@
                 </div>
             </div>
         </div>
+        <!-- Disclaimer -->
         <div class="row">
             <div class="col s12 valign-wrapper white intro-bottom z-depth-2">
                 <p class="col s12 valign intro-bottom-text"><em>Meetup Map is in no way affiliated with
                     Meetup&trade;</em></p>
             </div>
         </div>
-        <video id="bgvid" autoplay muted loop>
+        <!-- Static BG for mobile -->
+        <div class="staticBG hide-on-med-and-up"></div>
+        <!-- Video BG for non-mobile -->
+        <video id="bgvid" class="hide-on-small-only" autoplay muted loop>
             <source src="assets/video/friends.m4v" type="video/m4v">
             <source src="assets/video/friends.webm" type="video/webm">
         </video>
+        <!-- Map page -->
         <div class="map-wrapper">
+            <!-- Top toolbar with secondary search -->
             <div class="row">
                 <div id="top_search" class="col s12 red darken-1 valign-wrapper z-depth-2">
                     <div class="col s12 m10 offset-m1 input-nav valign">
@@ -80,24 +88,30 @@
                     </div>
                 </div>
             </div>
+            <!-- Sidebar event cards -->
             <div class="row">
                 <div id="map_left" class="col s11 m3">
                 </div>
             </div>
+            <!-- Google map -->
             <div class="row">
                 <div class="col s12 map-center white lighten-2">
                     <div id="map"></div>
                 </div>
             </div>
         </div>
+        <!-- Event details page -->
         <div class="details-wrapper white">
             <div class="row details-wrapper-row">
                 <div class="col s11 offset-s1 m10 offset-m2 details-inner">
+                    <!-- Back to map button -->
                     <div class="btn-floating btn-large waves-effect waves-light grey lighten-3 z-depth-3 tooltipped back-one" data-position="bottom" data-tooltip="Back to map" data-delay="50">
                         <i class="material-icons red-text darken-1">arrow_upward</i>
                     </div>
+                    <!-- Event details section -->
                     <div class="col s11 m9 l5 offset-m2 offset-l2 event-details">
                     </div>
+                    <!-- Youtube videos -->
                     <div class="col hide-on-med-and-down m4 offset-m2 offset-l1 video-list"></div>
                 </div>
             </div>
@@ -105,7 +119,7 @@
     </div>
 </div>
 
-<!-- PRELOAD -->
+<!-- Preloader spinner -->
 <div class="greyBG">
     <div class="preloader-wrapper active">
         <div class="spinner-layer spinner-red-only">
@@ -122,7 +136,7 @@
     </div>
 </div>
 
-<!-- MODAL FOR WHEN THE RESPECTIVE APIs ARE BEING THROTTLED -->
+<!-- Error modal -->
 <div id="error_modal" class="modal">
     <div class="modal-content">
         <h4>Oops!</h4>
@@ -142,14 +156,14 @@
     };
 
     /*
-     Using the Google Maps API requires their specific instructions to call this way.  We could not use
-     AJAX normally to do it.
+    Using the Google Maps API requires their specific instructions to call this way.  We could not use
+    AJAX normally to do it.
 
-     We use the InfoBubble library to make our popup when people click on our markers.  We assign two
-     InfoBubble, one for 'You are Here' marker and our Meetups icons.
+    We use the InfoBubble library to make our popup when people click on our markers.  We assign two
+    InfoBubble, one for 'You are Here' marker and our Meetups icons.
 
-     It uses Google API eventListener to provide the base for our click handlers
-     */
+    It uses Google API eventListener to provide the base for our click handlers
+    */
 
     /**
      * function initMap
@@ -267,7 +281,7 @@
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
-            icon: 'assets/images/map-pin-sm.png'
+            icon: 'assets/images/pin.png'
         });
 
     }

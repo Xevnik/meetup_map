@@ -136,15 +136,19 @@
 <script>
 
     var locations = [];
+    var mapAndInfoBubbles = {
+        map: null,
+        infoBubbles: []
+    };
 
     /*
-    Using the Google Maps API requires their specific instructions to call this way.  We could not use
-    AJAX normally to do it.
+     Using the Google Maps API requires their specific instructions to call this way.  We could not use
+     AJAX normally to do it.
 
-    We use the InfoBubble library to make our popup when people click on our markers.  We assign two
-    InfoBubble, one for 'You are Here' marker and our Meetups icons.
+     We use the InfoBubble library to make our popup when people click on our markers.  We assign two
+     InfoBubble, one for 'You are Here' marker and our Meetups icons.
 
-    It uses Google API eventListener to provide the base for our click handlers
+     It uses Google API eventListener to provide the base for our click handlers
      */
 
     /**
@@ -205,8 +209,10 @@
             }, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#46bcec"}, {"visibility": "on"}]}]
         });
 
+        mapAndInfoBubbles.map = map;
         if (eventObj !== undefined) {
             var j = 1;
+
             for (var i = 0; i < eventObj.length; i++) {
                 var marker = new google.maps.Marker({
                     position: {
@@ -238,23 +244,25 @@
                     arrowPosition: 50,
                     backgroundClassName: 'transparent',
                     arrowStyle: 0,
-                    closeSrc: 'http://www.google.com/intl/en_us/mapfiles/close.gif'
+                    closeSrc: 'http://www.google.com/intl/en_us/mapfiles/close.gif',
+                    bubbleTitle: eventObj[i].title
                 });
-
                 marker.pos = new google.maps.LatLng(eventObj[i].lat, eventObj[i].lng);
                 marker.html = '<div class="mylabel"><span>' +
                         eventObj[i].title +
                         '</span><div class="div_links">'+eventObj[i].venue+'</div>' +
-                        '<div class="div_links">'+eventObj[i].address+'</div>' + '<a class="details" href="#" onclick="test(this)">More Details</a>'
-                         + '</div>';
+                        '<div class="div_links">'+eventObj[i].address+'</div>' + '<a class="details" href="#" onclick="seeDetailsFromBubble(this)">More Details</a>'
+                        + '</div>';
 
                 marker.addListener('click', function () {
                     //infowindow.open(map, marker);
                     infoBubble2.setContent(this.html);
+                    //console.log($(infoBubble2.getContent()).find(".details"));
                     infoBubble2.open(map, this);
                     //map.panTo(this.pos);
                     highlight(this);
                 });
+                mapAndInfoBubbles.infoBubbles.push([infoBubble2, marker]);
 
 
             }

@@ -214,10 +214,22 @@ function click_handlers() {
 
     //Event delegation for card events. On click, dynamically adds specific event info to event description page
     $("#map_left").on("click",".card-content",function () {
-        $(".intro-wrapper").animate({top: '-200vh'}, 750);
+        var title = $(this).find(".card-title").text();
+        //Close all open info bubbles
+        mapAndInfoBubbles.infoBubbles.forEach(function(bubble){
+            bubble[0].close();
+        });
+        //Find info bubble matching card clicked
+        var bubbleArr = mapAndInfoBubbles.infoBubbles.filter(function(bubble) {
+            return bubble[0].bubbleTitle === title;
+        });
+        //Open the matching info bubble
+        bubbleArr[0][0].setContent(bubbleArr[0][1].html);
+        bubbleArr[0][0].open(mapAndInfoBubbles.map, bubbleArr[0][1]);
         $('.active-card').removeClass('active-card');
         $(this).addClass('active-card');
         createEventDescription(this);
+        $(".intro-wrapper").delay(2000).animate({top: '-200vh'}, 750);
         $('.back-one').css('display','block');
     });
 
@@ -225,20 +237,29 @@ function click_handlers() {
     $('.tooltipped').tooltip({delay: 50});
 
 }
+
 /**
  * Function Highlight - make matching event card active when its map marker is clicked
  * @param marker - the marker clicked (see script in index)
  */
 function highlight(marker){
-    var subStr = marker.html.match("<span>(.*)<\/span>");
-    console.log(subStr[1]);
-    var card = $('.card-title:contains("'+ subStr[1] +'")').parent();
+    var title = marker.title;
+    var card = $('.card-title:contains("'+ title +'")').parent();
     $(".card-content").removeClass("active-card");
-    // var parent = $(x).parent();
-    // var event = parent["0"].firstChild.childNodes["0"].data;
-    // var card= $('.card-title:contains("'+ event +'")').parent();
     $(card).addClass("active-card");
     $("#map_left").scrollTo(card);
+}
+
+/**
+ * seeDetailsFromBubble - shows more event detail when more detail requested from info bubble
+ * @param button - the more details link on the info bubble
+ */
+function seeDetailsFromBubble(button){
+    var title = $(button).parent()["0"].childNodes["0"].innerText;
+    var card = $('.card-title:contains("'+ title +'")').parent();
+    createEventDescription(card);
+    $(".intro-wrapper").animate({top: '-200vh'}, 750);
+    $('.back-one').css('display','block');
 }
 /**
  * getTopics - using user-entered interest, generate topics and use first 2 url keys

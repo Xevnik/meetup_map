@@ -13,7 +13,6 @@ var global_event = [];
 var global_zip = null;
 var global_venue = [];
 
-
 /**
  * function geoCoding
  *      converts zip code to longitude and latitude
@@ -158,7 +157,6 @@ function click_handlers() {
     /*
      When the user presses ENTER, it will submit the inputs on the FRONT PAGE
      */
-
     $('.input-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
@@ -177,19 +175,26 @@ function click_handlers() {
     /*
      When the user presses ENTER, it will submit the inputs on the TOP NAV BAR
      */
-
     $('.input-nav-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
             inputConfirmed();
+            var windowWidth = $(window).width();
+            if (windowWidth <= 700) {
+                $('.back-one').trigger('click');
+            }
         }
     });
 
     /*
      When the user clicks GO , it will submit the inputs on the TOP NAV BAR
      */
-    $('button#nav-go').click(function () {
+    $('button.nav-go').click(function () {
         inputConfirmed();
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('.back-one').trigger('click');
+        }
     });
 
     /*
@@ -208,8 +213,12 @@ function click_handlers() {
      Details Wrapper page, it will move up to the map (using event delegation)
      */
     $(".back-one").click(function () {
-        $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
+        $(".intro-wrapper").animate({top: '-100vh'}, 750);
         $('.back-one').fadeOut('slow','linear');
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('#map_left').animate({top: '12vh'}, 750);
+        }
     });
 
     //Event delegation for card events. On click, dynamically adds specific event info to event description page
@@ -231,10 +240,21 @@ function click_handlers() {
         createEventDescription(this);
         $(".intro-wrapper").delay(2000).animate({top: '-200vh'}, 750);
         $('.back-one').css('display','block');
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('#map_left').animate({top: '-200vh'}, 750);
+        }
     });
 
-    //Initialize tooltip delay
-    $('.tooltipped').tooltip({delay: 50});
+    // Remove tooltips for mobile else initialize them
+    (function() {
+        var windowWidth = $(window).width();
+        if (windowWidth <= 600) {
+            $('.tooltipped').tooltip('remove');
+        } else {
+            $('.tooltipped').tooltip({delay: 50});
+        }
+    }());
 
 }
 
@@ -276,15 +296,15 @@ function getTopics(keyword, zipcode) {
         data: {keyword:keyConcat},
         success: function (response) {
             var topics = '';
-            if (response['code'] === 'blocked') {
+            if (response.code === 'blocked') {
                 getTopicsBackup(keyConcat, zip);
             } else {
                 if (response.results.length > 0) { //if the array > 0, there are topics related to user's search term
                     for (var i = 0; i < response.results.length; i++) { //for the amount of results, add to string separated by commas
                         if (i !== response.results.length - 1) {
-                            topics += response.results[i]['urlkey'] + ',';
+                            topics += response.results[i].urlkey + ',';
                         } else {
-                            topics += response.results[i]['urlkey'];
+                            topics += response.results[i].urlkey;
                         }
                     }
                 }
@@ -318,9 +338,9 @@ function getTopicsBackup(keyword, zipcode) {
             if (response.results.length > 0) { //if the array > 0, there are topics related to user's search term
                 for (var i = 0; i < response.results.length; i++) { //for the amount of results, add to string separated by commas
                     if (i !== response.results.length - 1) {
-                        topics += response.results[i]['urlkey'] + ',';
+                        topics += response.results[i].urlkey + ',';
                     } else {
-                        topics += response.results[i]['urlkey'];
+                        topics += response.results[i].urlkey;
                     }
                 }
             }
@@ -431,8 +451,8 @@ function getEventsBackup(keyword, zip) {
 function createEventCard(event){
     var eventId = global_event.length;
     global_event.push(event); //push events used for cards to array for use on event description page
-    var eventName = event['name'];
-    var date = new Date(event['time']);
+    var eventName = event.name;
+    var date = new Date(event.time);
     date = parseTime(date);
     var venueName = event.venue.name;
     /*Comment to see if git contribution will show up */
@@ -536,19 +556,19 @@ function parseGoogleDate(date) {
 
 $('#map_left').on('click','.card', function(){
     var $eventName=$('<h1>',{
-        text:event[i]['name']
+        text:event[i].name
     });
     var $groupName=$('<h5>',{
         text:event[i].group.name
     });
     var $eventDate= $('<h4>',{
-        text: new Date(event[i]['time'])
+        text: new Date(event[i].time)
     });
     var $eventAddress= $('<h4>',{
         text:event[i].venue.address_1 + ' ' + event[i].venue.city + ', ' + event[i].venue.state
     });
     var $eventDescription=$('<p>',{
-        text:event[i]['description']
+        text:event[i].description
     });
     var $eventDetail=$('<div>',{
         class:"event-details"
@@ -650,18 +670,18 @@ function createEventDescription(eventCard) {
     var cardClicked = eventCard;
     var cardId = $(cardClicked).attr('id'); //finds card id to look for matching event
     cardEvent = global_event[cardId];
-    var dateForICS = parseICSDate(new Date(cardEvent['time']));
-    var dateForGoogleCal = parseGoogleDate(new Date(cardEvent['time']));
-    var date = new Date(cardEvent['time']);
+    var dateForICS = parseICSDate(new Date(cardEvent.time));
+    var dateForGoogleCal = parseGoogleDate(new Date(cardEvent.time));
+    var date = new Date(cardEvent.time);
     date = parseTime(date); //get readable date format
     var state = cardEvent.venue.state || '';
-    var eventName = cardEvent['name'];
+    var eventName = cardEvent.name;
     var eventLocation = (cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state);
-    var eventHowToFindUs = cardEvent['how_to_find_us'];
+    var eventHowToFindUs = cardEvent.how_to_find_us;
     eventHowToFindUs = eventHowToFindUs === undefined ? '' : 'How to find us: ' + eventHowToFindUs;
     var $eventName=$('<h3>',{
         class: 'red-text event-title',
-        text: cardEvent['name']
+        text: cardEvent.name
     });
     var $groupName=$('<h6>',{
         html: '<em>' + cardEvent.group.name + '</em>'
@@ -675,7 +695,7 @@ function createEventDescription(eventCard) {
     });
     var $eventURL=$('<a/>',{
         target: "_blank",
-        href: cardEvent['event_url'],
+        href: cardEvent.event_url,
         html: "<i class='tiny material-icons light-blue-text darken-1'>open_in_new</i> View Event on Meetup.com"
     });
     var $eventGoogleCal=$('<a/>',{
@@ -688,12 +708,12 @@ function createEventDescription(eventCard) {
         html: "<i class='tiny material-icons light-blue-text darken-1'>file_download</i> Download ICS (Calendar) File",
         click: function() {
             var cal = ics();
-            cal.addEvent('Meetup: ' + cardEvent['name'], 'Hosted by: ' + cardEvent.group.name + '<br><br>' + 'Description: ' + cardEvent['description'] + '<br>' + 'How to find us: ' + cardEvent['how_to_find_us'] + '<br><br><br>' + 'Brought to you by MeetupMap.', cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state, dateForICS, dateForICS);
+            cal.addEvent('Meetup: ' + cardEvent.name, 'Hosted by: ' + cardEvent.group.name + '<br><br>' + 'Description: ' + cardEvent.description + '<br>' + 'How to find us: ' + cardEvent.how_to_find_us + '<br><br><br>' + 'Brought to you by MeetupMap.', cardEvent.venue.address_1 + " " + cardEvent.venue.city + " " + state, dateForICS, dateForICS);
             cal.download();
         }
     });
     var $eventDescription=$('<p>',{
-        html: cardEvent['description']
+        html: cardEvent.description
     });
     //attach elements to dom
     $('.event-details').append($groupName,$eventName,$eventAddress,$eventDate,$('<hr>'),$eventURL,$('<br>'),$eventGoogleCal,$('<br>'),$eventCalendarICS,$('<hr>'),$eventDescription);

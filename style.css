@@ -448,3 +448,19 @@ RESPONSIVE
         display: block;
     }
 }
+
+@media only screen and (max-device-width : 600px) and (max-height : 400px) {
+
+    #front-go {
+        height: 150%;
+    }
+
+    #top_search {
+        height: 24vh;
+    }
+
+    .map-left {
+        top: 24vh;
+    }
+
+}

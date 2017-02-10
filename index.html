@@ -13,7 +13,7 @@
     <script type="text/javascript" src="./services/infobubble-compiled.js"></script>
     <script type="text/javascript" src="https://rawgithub.com/nwcell/ics.js/master/ics.deps.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 </head>
 <body>
 <div class="entire-wrapper">
@@ -109,8 +109,7 @@
                         <i class="material-icons red-text darken-1">arrow_upward</i>
                     </div>
                     <!-- Event details section -->
-                    <div class="col s11 m9 l5 offset-m2 offset-l2 event-details">
-                    </div>
+                    <div class="col s11 m9 l5 offset-m2 offset-l2 event-details"></div>
                     <!-- Youtube videos -->
                     <div class="col hide-on-med-and-down m4 offset-m2 offset-l1 video-list"></div>
                 </div>
@@ -267,7 +266,9 @@
                 marker.addListener('click', function () {
                     //infowindow.open(map, marker);
                     infoBubble2.setContent(this.html);
-                    if (infoBubble2) { infoBubble2.close(); }
+                    mapAndInfoBubbles.infoBubbles.forEach(function(x){
+                        x[0].close();
+                    });
                     infoBubble2.open(map, this);
                     //map.panTo(this.pos);
                     highlight(this);

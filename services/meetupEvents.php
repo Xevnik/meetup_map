@@ -4,5 +4,8 @@ header("Access-Control-Allow-Origin: *");
 
 require_once ('../apikeys.php');
 
-$getEventsData = file_get_contents("https://api.meetup.com/2/open_events?key=".$meetupKey1."&zip=".$_GET['zip']."&topic=".$_GET['keyword']."&page=20");
+$zip = filter_var($_GET['zip'], FILTER_SANITIZE_STRING);
+$keyword = filter_var($_GET['keyword'], FILTER_SANITIZE_STRING);
+
+$getEventsData = file_get_contents("https://api.meetup.com/2/open_events?key=".$meetupKey1."&zip=".$zip."&topic=".$keyword."&page=20");
 print_r($getEventsData);

@@ -230,7 +230,7 @@
                     map: map,
                     position: new google.maps.LatLng(eventObj[i].lat, eventObj[i].lng),
                     content: '<div class="mylabel">' + eventObj[i].venue + '</div>',
-                    shadowStyle: 0,
+                    shadowStyle: 1,
                     padding: 8,
                     backgroundColor: '#fff',
                     arrowSize: 10,
@@ -242,17 +242,13 @@
                     minHeight: 120,
                     maxHeight: 120,
                     arrowPosition: 50,
-                    backgroundClassName: 'transparent',
+                    backgroundClassName: 'transparent valign-wrapper details-container',
                     arrowStyle: 0,
                     closeSrc: 'http://www.google.com/intl/en_us/mapfiles/close.gif',
                     bubbleTitle: eventObj[i].title
                 });
                 marker.pos = new google.maps.LatLng(eventObj[i].lat, eventObj[i].lng);
-                marker.html = '<div class="mylabel"><span>' +
-                        eventObj[i].title +
-                        '</span><div class="div_links">'+eventObj[i].venue+'</div>' +
-                        '<div class="div_links">'+eventObj[i].address+'</div>' + '<a class="details" href="#" onclick="seeDetailsFromBubble(this)">More Details</a>'
-                        + '</div>';
+                marker.html = '<div class="mylabel valign"><p>' + eventObj[i].title + '</p>' + '<button class="waves-effect waves-light btn z-depth-1 red darken-1 white-text center-align details" href="#" onclick="seeDetailsFromBubble(this)">Event Details</button>' + '</div>';
 
                 marker.addListener('click', function () {
                     //infowindow.open(map, marker);

@@ -238,13 +238,11 @@ function click_handlers() {
         $('.active-card').removeClass('active-card');
         $(this).addClass('active-card');
         createEventDescription(this);
-        $('.back-one').css('display','block');
         var windowWidth = $(window).width();
         if (windowWidth <= 600) {
             $(".intro-wrapper").animate({top: '-200vh'}, 750);
             $('#map_left').animate({top: '-200vh'}, 750);
-        } else {
-            $(".intro-wrapper").delay(2000).animate({top: '-200vh'}, 750);
+            $('.back-one').css('display','block');
         }
     });
 

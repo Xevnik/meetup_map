@@ -223,8 +223,7 @@ SIDEBAR
 
 .back-one {
     position: fixed;
-    left: 90%;
-    transform: translateX(-10%);
+    right: 5%;
     top: 7vh;
     z-index: 100;
     display: none;
@@ -350,6 +349,10 @@ div.mylabel div.div_links .event-time {
     display: none;
 }
 
+/********************
+RESPONSIVE
+********************/
+
 @media only screen and (min-device-width : 969px) and (max-device-width : 1024px) {
     .card-content span.card-title {
         font-size: 20px;
@@ -357,16 +360,37 @@ div.mylabel div.div_links .event-time {
 }
 
 @media only screen and (min-device-width : 661px) and (max-device-width : 968px) {
+
+    .back-one {
+        position: fixed;
+        right: 5%;
+        top: auto;
+        bottom: 20px;
+        z-index: 100;
+        display: none;
+    }
+
     .card-content span.card-title {
         font-size: 16px;
     }
+
     div.card.red.lighten-1 {
         margin-right: 5px;
         width: 95%;
     }
+
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 660px) {
+
+    .back-one {
+        position: fixed;
+        right: 5%;
+        top: auto;
+        bottom: 20px;
+        z-index: 100;
+        display: none;
+    }
 
     .input-container .input-field label {
         font-size: .7rem;
@@ -374,10 +398,6 @@ div.mylabel div.div_links .event-time {
 
     .input-nav input::-webkit-input-placeholder {
         font-size: .7rem;
-    }
-
-    .logo-nav {
-        display: none;
     }
 
     .go-btn2 {
@@ -390,21 +410,13 @@ div.mylabel div.div_links .event-time {
         z-index: 0;
         overflow-y: scroll;
         overflow-x: hidden;
-        display: none;
-    }
-
-    #map_left {
-        display: none;
     }
 
     #map {
-        display: block;
+        display: none;
         z-index: 100;
     }
 
-    .details-wrapper {
-        display: none;
-    }
     .event-time {
         display: block;
     }

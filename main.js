@@ -13,7 +13,6 @@ var global_event = [];
 var global_zip = null;
 var global_venue = [];
 
-
 /**
  * function geoCoding
  *      converts zip code to longitude and latitude
@@ -158,7 +157,6 @@ function click_handlers() {
     /*
      When the user presses ENTER, it will submit the inputs on the FRONT PAGE
      */
-
     $('.input-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
@@ -177,19 +175,26 @@ function click_handlers() {
     /*
      When the user presses ENTER, it will submit the inputs on the TOP NAV BAR
      */
-
     $('.input-nav-container input').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
             inputConfirmed();
+            var windowWidth = $(window).width();
+            if (windowWidth <= 700) {
+                $('.back-one').trigger('click');
+            }
         }
     });
 
     /*
      When the user clicks GO , it will submit the inputs on the TOP NAV BAR
      */
-    $('button#nav-go').click(function () {
+    $('button.nav-go').click(function () {
         inputConfirmed();
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('.back-one').trigger('click');
+        }
     });
 
     /*
@@ -208,8 +213,12 @@ function click_handlers() {
      Details Wrapper page, it will move up to the map (using event delegation)
      */
     $(".back-one").click(function () {
-        $(".intro-wrapper").animate({top: '-100vh'}, 750, function(){});
+        $(".intro-wrapper").animate({top: '-100vh'}, 750);
         $('.back-one').fadeOut('slow','linear');
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('#map_left').animate({top: '12vh'}, 750);
+        }
     });
 
     //Event delegation for card events. On click, dynamically adds specific event info to event description page
@@ -219,10 +228,21 @@ function click_handlers() {
         $(this).addClass('active-card');
         createEventDescription(this);
         $('.back-one').css('display','block');
+        var windowWidth = $(window).width();
+        if (windowWidth <= 700) {
+            $('#map_left').animate({top: '-200vh'}, 750);
+        }
     });
 
-    //Initialize tooltip delay
-    $('.tooltipped').tooltip({delay: 50});
+    // Remove tooltips for mobile else initialize them
+    (function() {
+        var windowWidth = $(window).width();
+        if (windowWidth <= 600) {
+            $('.tooltipped').tooltip('remove');
+        } else {
+            $('.tooltipped').tooltip({delay: 50});
+        }
+    }());
 
 }
 /**

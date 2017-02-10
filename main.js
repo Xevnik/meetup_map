@@ -180,7 +180,7 @@ function click_handlers() {
             event.preventDefault();
             inputConfirmed();
             var windowWidth = $(window).width();
-            if (windowWidth <= 700) {
+            if (windowWidth <= 600) {
                 $('.back-one').trigger('click');
             }
         }
@@ -192,7 +192,7 @@ function click_handlers() {
     $('button.nav-go').click(function () {
         inputConfirmed();
         var windowWidth = $(window).width();
-        if (windowWidth <= 700) {
+        if (windowWidth <= 600) {
             $('.back-one').trigger('click');
         }
     });
@@ -216,7 +216,7 @@ function click_handlers() {
         $(".intro-wrapper").animate({top: '-100vh'}, 750);
         $('.back-one').fadeOut('slow','linear');
         var windowWidth = $(window).width();
-        if (windowWidth <= 700) {
+        if (windowWidth <= 600) {
             $('#map_left').animate({top: '12vh'}, 750);
         }
     });
@@ -238,11 +238,13 @@ function click_handlers() {
         $('.active-card').removeClass('active-card');
         $(this).addClass('active-card');
         createEventDescription(this);
-        $(".intro-wrapper").delay(2000).animate({top: '-200vh'}, 750);
         $('.back-one').css('display','block');
         var windowWidth = $(window).width();
-        if (windowWidth <= 700) {
+        if (windowWidth <= 600) {
+            $(".intro-wrapper").animate({top: '-200vh'}, 750);
             $('#map_left').animate({top: '-200vh'}, 750);
+        } else {
+            $(".intro-wrapper").delay(2000).animate({top: '-200vh'}, 750);
         }
     });
 
@@ -267,7 +269,9 @@ function highlight(marker){
     var card = $('.card-title:contains("'+ title +'")').parent();
     $(".card-content").removeClass("active-card");
     $(card).addClass("active-card");
-    $("#map_left").scrollTo(card);
+    //$("#map_left").scrollTo(card);
+    var container = $('#map_left');
+    container.animate({scrollTop: $(card).offset().top - container.offset().top + container.scrollTop() - (container.offset().top / 2)}, 800, "easeInOutQuart");
 }
 
 /**
@@ -455,7 +459,6 @@ function createEventCard(event){
     var date = new Date(event.time);
     date = parseTime(date);
     var venueName = event.venue.name;
-    /*Comment to see if git contribution will show up */
     var address = event.venue.address_1;
     var city = event.venue.city;
     //create html elements with classes

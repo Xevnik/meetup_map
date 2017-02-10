@@ -1,3 +1,6 @@
+html {
+    background-color: white;
+}
 
 .row {
     margin: 0;
@@ -304,16 +307,21 @@ MAP MARKER
 *******************/
 
 .mylabel {
+    margin: auto;
     padding: 5px;
+    text-align: center;
 }
 
-.mylabel span {
+.mylabel p {
     width:100%;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
-}
-.div_links {
     color: grey;
+    margin: 5px 0;
+}
+
+.details-container {
+    height: 100%;
 }
 
 /********************
@@ -359,7 +367,7 @@ RESPONSIVE
     }
 }
 
-@media only screen and (min-device-width : 661px) and (max-device-width : 968px) {
+@media only screen and (min-device-width : 600px) and (max-device-width : 968px) {
 
     .back-one {
         position: fixed;
@@ -381,7 +389,7 @@ RESPONSIVE
 
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 660px) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 600px) {
 
     .back-one {
         position: fixed;

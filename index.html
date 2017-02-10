@@ -267,7 +267,9 @@
                 marker.addListener('click', function () {
                     //infowindow.open(map, marker);
                     infoBubble2.setContent(this.html);
-                    if (infoBubble2) { infoBubble2.close(); }
+                    mapAndInfoBubbles.infoBubbles.forEach(function(x){
+                        x[0].close();
+                    });
                     infoBubble2.open(map, this);
                     //map.panTo(this.pos);
                     highlight(this);

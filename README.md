@@ -15,6 +15,6 @@ A modern responsive web application that allows users to search for upcoming mee
 - **Meetup API, Google Maps & Geocoding APIs, Youtube API**
 
 ## Planned Additions:
-- Correlate videos with the specific meetup page
+- Correlate videos with the specific meetup event
 - Refine meetup search to weed out any similar but actually unrelated meetups
 - Possibly add suggestions for what to search for

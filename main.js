@@ -577,7 +577,6 @@ $('#map_left').on('click','.card', function(){
     var $eventPage=$('<div>',{
         class:'details-wrapper white'
     }).append($eventDetail);
-
 });
 
 
@@ -718,4 +717,6 @@ function createEventDescription(eventCard) {
     });
     //attach elements to dom
     $('.event-details').append($groupName,$eventName,$eventAddress,$eventDate,$('<hr>'),$eventURL,$('<br>'),$eventGoogleCal,$('<br>'),$eventCalendarICS,$('<hr>'),$eventDescription);
+
+    $('div.event-details > p a').attr('target',"_blank");
 }
